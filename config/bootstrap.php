@@ -13,6 +13,7 @@
  */
 
 return [
+    support\bootstrap\Container::class,
     support\bootstrap\Session::class,
     support\bootstrap\db\Laravel::class,
     support\bootstrap\Redis::class,

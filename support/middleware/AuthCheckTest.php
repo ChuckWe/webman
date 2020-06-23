@@ -12,11 +12,20 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace support;
+namespace support\middleware;
 
-use Illuminate\Database\Eloquent\Model as BaseModel;
+use Webman\MiddlewareInterface;
+use Webman\Http\Response;
+use Webman\Http\Request;
 
-class Model extends BaseModel
+class AuthCheckTest implements MiddlewareInterface
 {
-
+    public function process(Request $request, callable $next) : Response
+    {
+        $session = $request->session();
+        if (!$session->get('userinfo')) {
+            return redirect('/user/login');
+        }
+        return $next($request);
+    }
 }
